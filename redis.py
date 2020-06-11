@@ -75,6 +75,7 @@ class Worker:
         self.mightCrash()
         self.work()
 
+#todo
 
 # manager
 # starts worker every m seconds
@@ -87,6 +88,9 @@ class Worker:
 # every w seconds, worker should work
 # every c seconds, a woker has 10% chance to crash
 # work: replace current with the next fibo term
+
+# threads 
+
 
 M = Manager(30)
 while True:
