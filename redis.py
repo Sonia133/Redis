@@ -68,6 +68,7 @@ class Worker:
                 currT = currTime
 
     def work(self):
+        # add mutex
         currW = int(time.perf_counter())
         while True:
             currTime = int(time.perf_counter())
