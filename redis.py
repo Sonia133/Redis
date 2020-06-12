@@ -1,6 +1,7 @@
 import redis
 import time
 import random
+import threading
 
 id = 0
 
@@ -14,9 +15,10 @@ class Manager:
     def __init__(self, M):
         self.M = M
 
-    def startWorker(self, Mg):
+    def startWorker(self):
         currTime = int(time.perf_counter())
         if currTime - Mg > self.M:
+            Mg = currTime
             w = Worker(5, 10, 20, 10, id)
             w.initWorker()
 
@@ -29,7 +31,12 @@ class Worker:
         self.C = C
         self.id = id
         id += 1
-
+    
+    def releaseThread():
+        thread = threading.Thread(target = startProcess)
+        thread.start()
+        # thread.join()
+        
     def initWorker(self):
         currTime = int(time.perf_counter())
         workers = red.zrange('heartbeats', 0, -1, withscores=True)
@@ -40,7 +47,7 @@ class Worker:
 
         if len(workers) < self.N:
             red.zadd('heartbeats', {self.id: currTime})
-            self.startProcess()
+            self.releaseThread()
 
     def mightCrash(self):
         currC = int(time.perf_counter())
@@ -93,6 +100,7 @@ class Worker:
 
 
 M = Manager(30)
+Mg = int(time.perf_counter())
+
 while True:
-    Mg = int(time.perf_counter())
-    M.startWorker(Mg)
+    M.startWorker()
