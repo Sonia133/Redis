@@ -35,7 +35,6 @@ class Worker:
     def releaseThread():
         thread = threading.Thread(target = startProcess)
         thread.start()
-        # thread.join()
         
     def initWorker(self):
         currTime = int(time.perf_counter())
@@ -57,6 +56,7 @@ class Worker:
                 chance = random.randint(0, 10)
                 if chance == 1:
                     red.zrem('heartbeats', self.id)
+                    # kill thread..
                 currC = currTime
 
     def updateHeartbeat(self):
