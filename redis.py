@@ -56,7 +56,7 @@ class Worker:
                 chance = random.randint(0, 10)
                 if chance == 1:
                     red.zrem('heartbeats', self.id)
-                    # kill thread..
+                    exit()
                 currC = currTime
 
     def updateHeartbeat(self):
